@@ -1,6 +1,5 @@
 package com.parzivail.blanketconpatches.mixin;
 
-import com.parzivail.blanketconpatches.BlanketconPatches;
 import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,8 +19,6 @@ public class PlayerAdvancementTrackerMixin
 	{
 		// Do not the cat
 		dirty = false;
-		BlanketconPatches.LOGGER.info("Prevented advancement sync for " + serverPlayerEntity.toString());
-
 		ci.cancel();
 	}
 }

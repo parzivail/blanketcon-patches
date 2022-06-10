@@ -1,13 +1,13 @@
 package com.parzivail.blanketconpatches.mixin;
 
 import com.parzivail.blanketconpatches.BlanketconPatches;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,16 +24,14 @@ public class GameOptionsMixin
 	@Shadow
 	private File optionsFile;
 
+	@Final
+	@Shadow
+	public KeyBinding[] allKeys;
+
 	@Inject(method = "load()V", at = @At("HEAD"))
 	public void load(CallbackInfo ci)
 	{
-		BlanketconPatches.SHOULD_PATCH_KEYS = !optionsFile.exists();
-	}
-
-	@Inject(method = "write()V", at = @At("HEAD"))
-	public void write(CallbackInfo ci)
-	{
-		if (!BlanketconPatches.SHOULD_PATCH_KEYS)
+		if (optionsFile.exists())
 		{
 			BlanketconPatches.LOGGER.info("Detected existing options.txt, not modifying keybinds");
 			return;
@@ -42,9 +40,8 @@ public class GameOptionsMixin
 		// Options file doesn't exist, setting sensible defaults
 		BlanketconPatches.LOGGER.info("Writing new options.txt, setting sensible keybind defaults");
 
-		var mc = MinecraftClient.getInstance();
 		var keybindingsByTranslationKey = Arrays
-				.stream(mc.options.allKeys)
+				.stream(allKeys)
 				.collect(Collectors.toMap(
 						KeyBinding::getTranslationKey,
 						keyBinding -> keyBinding
@@ -76,6 +73,7 @@ public class GameOptionsMixin
 		setKeybind(keybindingsByTranslationKey, "key.pswg.species_select", InputUtil.GLFW_KEY_I);
 	}
 
+	@Unique
 	private void setKeybind(Map<String, KeyBinding> keyBindingMap, String target, int newKeyCode)
 	{
 		var key = keyBindingMap.get(target);

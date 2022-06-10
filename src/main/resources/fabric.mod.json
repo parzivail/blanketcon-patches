@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "blanketconpatches",
+  "version": "0.0.1",
+  "name": "BlanketCon Patches",
+  "description": "Fixes for con-specific bugs",
+  "authors": [
+    "parzivail"
+  ],
+  "contact": {
+    "sources": ""
+  },
+  "license": "MIT",
+  "icon": "assets/modid/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.parzivail.blanketconpatches.BlanketconPatches"
+    ]
+  },
+  "mixins": [
+    "blanketconpatches.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.7.2",
+    "fabric": "*",
+    "minecraft": ">=1.14-"
+  }
+}

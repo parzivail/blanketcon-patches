@@ -3,6 +3,7 @@
   "package": "com.parzivail.blanketconpatches.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MapStateMixin",
     "PlayerAdvancementTrackerMixin",
     "RecipeManagerMixin"
   ],

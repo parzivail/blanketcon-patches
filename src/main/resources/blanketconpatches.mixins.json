@@ -1,14 +1,15 @@
 {
-	"required": true,
-	"package": "com.parzivail.blanketconpatches.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"PlayerAdvancementTrackerMixin"
-	],
-	"client": [
-		"GameOptionsMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "com.parzivail.blanketconpatches.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "PlayerAdvancementTrackerMixin",
+    "RecipeManagerMixin"
+  ],
+  "client": [
+    "GameOptionsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }
